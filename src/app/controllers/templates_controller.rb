@@ -3,7 +3,8 @@ class TemplatesController < ApplicationController
 
   # GET /templates or /templates.json
   def index
-    @templates = Template.all
+    @templates = current_user.templates
+    Rails.logger.debug @templates.inspect
   end
 
   # GET /templates/1 or /templates/1.json

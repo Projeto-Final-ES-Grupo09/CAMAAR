@@ -3,5 +3,14 @@ class HomeController < ApplicationController
   def index
     @formularios = Formulario.joins(turma: [:professor, :materia], template: [])
       .select('formularios.*, turmas.classCode as turma_classCode, turmas.semestre as turma_semestre, users.nome as professor_name, materias.nome as materia_nome')
+    Rails.logger.debug @formularios.inspect
+  end
+  def gerenciamento
+    
+  end
+  def resultados
+    @formularios = Formulario.joins(turma: [:professor, :materia], template: [])
+    .select('formularios.*, turmas.classCode as turma_classCode, turmas.semestre as turma_semestre, users.nome as professor_name, materias.nome as materia_nome')
+    Rails.logger.debug @formularios.inspect
   end
 end

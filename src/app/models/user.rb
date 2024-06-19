@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_and_belongs_to_many :turmas
+  has_and_belongs_to_many :turmas, foreign_key: 'professor_id'
   has_many :respostas
   has_many :templates
 

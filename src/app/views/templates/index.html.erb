@@ -1,14 +1,21 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Templates</h1>
-
-<div id="templates">
-  <% @templates.each do |template| %>
-    <%= render template %>
-    <p>
-      <%= link_to "Show this template", template %>
-    </p>
+<div class="container-template">
+  <% if @templates.any? %>
+    <% @templates.each do |template| %>
+      <div class="box-template">
+        <div class="info-template">
+          <h1><%= template.nome %></h1>
+          <p>Semestre: <%= template.semestre %></p>
+        </div>
+        <div class="icon-template">
+          <%= image_tag('editarIcon.png', alt: 'Editar', class: 'icon-menu', id: 'openMenu') %>
+          <%= image_tag('lixeiraIcon.png', alt: 'Deletar', class: 'icon-menu', id: 'openMenu') %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <p>Nenhum template encontrado.</p>
   <% end %>
+  <div class="adicionar-template">
+    +
+  </div>
 </div>
-
-<%= link_to "New template", new_template_path %>

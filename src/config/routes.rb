@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   resources :respostas
   resources :questoes
   resources :materias
-  
+  get 'gerenciamento', to: 'home#gerenciamento', as: 'gerenciamento'
+  get 'resultados', to: 'home#resultados', as: 'resultados'
   resources :materia
   resources :questaos
   resources :formularios

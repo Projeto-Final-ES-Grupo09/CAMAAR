@@ -15,7 +15,26 @@
   <% else %>
     <p>Nenhum template encontrado.</p>
   <% end %>
-  <div class="adicionar-template">
+  <div class="adicionar-template" id="openModalAdd">
     +
   </div>
 </div>
+
+<div class="modal-adicionar-template" id="template-add">
+  <div class="modal-content">
+    <p>Abriu</p>
+  </div>
+</div>
+
+<script>
+  var modal = document.getElementById("template-add");
+  var btn = document.getElementById("openModalAdd");
+  btn.onclick = function() {
+    modal.style.display = "block";
+  }
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+</script>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_13_094543) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_20_202521) do
   create_table "formularios", force: :cascade do |t|
     t.integer "id_turma"
     t.integer "id_template"
@@ -79,6 +79,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_13_094543) do
     t.integer "materia_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "nome"
     t.index ["materia_id"], name: "index_turmas_on_materia_id"
   end
 

@@ -8,10 +8,13 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= stylesheet_link_tag 'resetcss', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <%= javascript_importmap_tags %>
   </head>
-  <%= render partial: 'shared/header' %>
+  <% if user_signed_in? %>
+    <%= render partial: 'shared/header' %>
+  <% end %>
   <body>
     <%= yield %>
   </body>

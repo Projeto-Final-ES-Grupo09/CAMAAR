@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :materias
   get 'gerenciamento', to: 'home#gerenciamento', as: 'gerenciamento'
   get 'resultados', to: 'home#resultados', as: 'resultados'
+  post 'enviar_formularios', to: 'home#enviar_formularios', as: 'enviar_formularios'
   resources :materia
   resources :questaos
   resources :formularios

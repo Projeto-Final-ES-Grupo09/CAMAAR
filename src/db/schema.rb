@@ -18,6 +18,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_20_202521) do
     t.integer "template_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "respostas_id"
+    t.index ["respostas_id"], name: "index_formularios_on_respostas_id"
     t.index ["template_id"], name: "index_formularios_on_template_id"
     t.index ["turma_id"], name: "index_formularios_on_turma_id"
   end
@@ -33,11 +35,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_20_202521) do
     t.string "tipo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "respostas_id"
+    t.index ["respostas_id"], name: "index_questoes_on_respostas_id"
   end
 
-  create_table "questoes_templates", id: false, force: :cascade do |t|
-    t.integer "questao_id"
-    t.integer "template_id"
+  create_table "questoes_templates", force: :cascade do |t|
+    t.integer "questao_id", null: false
+    t.integer "template_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["questao_id"], name: "index_questoes_templates_on_questao_id"
     t.index ["template_id"], name: "index_questoes_templates_on_template_id"
   end
@@ -45,49 +51,29 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_20_202521) do
   create_table "respostas", force: :cascade do |t|
     t.text "resposta"
     t.integer "numero"
-    t.integer "questao_id"
-    t.integer "formulario_id"
-    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["formulario_id"], name: "index_respostas_on_formulario_id"
-    t.index ["questao_id"], name: "index_respostas_on_questao_id"
-    t.index ["user_id"], name: "index_respostas_on_user_id"
   end
 
   create_table "templates", force: :cascade do |t|
-    t.string "codigo"
     t.string "nome"
     t.string "semestre"
-    t.integer "user_id"
+    t.integer "usuario"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_templates_on_user_id"
-  end
-
-  create_table "templates_users", id: false, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "template_id"
-    t.index ["template_id"], name: "index_templates_users_on_template_id"
-    t.index ["user_id"], name: "index_templates_users_on_user_id"
+    t.integer "users_id"
+    t.index ["users_id"], name: "index_templates_on_users_id"
   end
 
   create_table "turmas", force: :cascade do |t|
     t.string "classCode"
     t.string "semestre"
-    t.integer "professor_id"
     t.integer "materia_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "horario"
     t.string "nome"
     t.index ["materia_id"], name: "index_turmas_on_materia_id"
-  end
-
-  create_table "turmas_users", id: false, force: :cascade do |t|
-    t.integer "turma_id"
-    t.integer "user_id"
-    t.index ["turma_id"], name: "index_turmas_users_on_turma_id"
-    t.index ["user_id"], name: "index_turmas_users_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -105,14 +91,37 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_20_202521) do
     t.string "matricula", default: "", null: false
     t.string "usuario", default: "", null: false
     t.boolean "isAdmin", default: false
+    t.integer "respostas_id"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.string "departamento", default: "", null: false
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["respostas_id"], name: "index_users_on_respostas_id"
+    t.index ["usuario"], name: "index_users_on_usuario", unique: true
   end
 
+  create_table "users_turmas", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "turma_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["turma_id"], name: "index_users_turmas_on_turma_id"
+    t.index ["user_id"], name: "index_users_turmas_on_user_id"
+  end
+
+  add_foreign_key "formularios", "respostas", column: "respostas_id"
   add_foreign_key "formularios", "templates"
   add_foreign_key "formularios", "turmas"
-  add_foreign_key "respostas", "formularios"
-  add_foreign_key "respostas", "questoes"
-  add_foreign_key "respostas", "users"
+  add_foreign_key "questoes", "respostas", column: "respostas_id"
+  add_foreign_key "questoes_templates", "questoes"
+  add_foreign_key "questoes_templates", "templates"
+  add_foreign_key "templates", "users", column: "users_id"
   add_foreign_key "turmas", "materias"
+  add_foreign_key "users", "respostas", column: "respostas_id"
+  add_foreign_key "users_turmas", "turmas"
+  add_foreign_key "users_turmas", "users"
 end

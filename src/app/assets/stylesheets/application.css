@@ -246,7 +246,7 @@ body {
   padding: 20px;
   box-sizing: border-box;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   border-radius: 5px;
   cursor: pointer;
   gap: 10px;
@@ -264,6 +264,7 @@ body {
 .info-template h1 {
   display: -webkit-box;
   -webkit-line-clamp: 1;
+  font-size: 23px;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis; 

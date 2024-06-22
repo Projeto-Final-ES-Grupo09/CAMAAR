@@ -2,10 +2,11 @@
     <div style="display: flex; gap: 20px; align-items: center;">
       <%= image_tag('menu.svg', alt: 'Logo SVG', class: 'icon-menu', id: 'openMenu') %>
       <h1><%= current_page_title %></h1>
+      <h1><%= current_page_title %></h1>
     </div>
     <div id="profile" class="profile">
       <% if user_signed_in? %>
-        <p><%= current_user.email.first %></p>
+        <p><%= current_user.email.first.upcase %></p>
       <% end %>
     </div>
   </div>

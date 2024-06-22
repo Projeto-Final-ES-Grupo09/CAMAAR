@@ -27,57 +27,23 @@ class TemplatesController < ApplicationController
     end
   end
 
-
-  # def create  
-  #   # recupera os elementos passados pela rota  
-  #   template = params[:template]
-
-  #   user = User.find_by(template['user_id'])
-  #   semestre = template['semestre']
-  #   nome = template['nome']
-  #   questoes = []
-
-  #   if !template['questoes_id'].nil?
-  #     template['questoes_id'].each do |questao_id|
-  #       questoes << Questao.find_by(questao_id)
-  #     end
-  #   end
-
-  #   @template = Template.new(user: user, semestre: semestre, nome: nome, questoes: questoes)
-
-  #   if @template.questoes.any? && @template.save
-  #     redirect_to templates_url, notice: "Template was successfully created.", status: 302
-  #   elsif !@template.questoes.any?
-  #     render :new, notice: "Você deve adicionar alguma questão ao template antes de criá-lo.", status: 400
-  #   else
-  #     render :new, status: :unprocessable_entity
-  #   end
-  # end
-
   def update
-    respond_to do |format|
-      if @template.update(template_params)
-        format.html { redirect_to template_url(@template), notice: "Template atualizado!" }
-        format.json { render :show, status: :ok, location: @template }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @template.errors, status: :unprocessable_entity }
-      end
+    if @template.update(template_params)
+      redirect_to template_url, notice: "Template atualizado!"
+    else
+      render template_url(@template), status: :unprocessable_entity
     end
   end
 
   def destroy
     @template.destroy!
 
-    respond_to do |format|
-      format.html { redirect_to templates_url, notice: "Template was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to templates_url, notice: "Template excluído com sucesso."
   end
 
   private
     def set_template
-      @template = Template.find(params[:id])
+      @template = Template.find_by(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

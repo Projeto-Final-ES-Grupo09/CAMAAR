@@ -67,7 +67,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_21_103104) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "users_id"
     t.index ["user_id"], name: "index_templates_on_user_id"
+    t.index ["users_id"], name: "index_templates_on_users_id"
   end
 
   create_table "turmas", force: :cascade do |t|
@@ -78,6 +80,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_21_103104) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "horario"
+    t.string "nome"
     t.index ["materia_id"], name: "index_turmas_on_materia_id"
   end
 

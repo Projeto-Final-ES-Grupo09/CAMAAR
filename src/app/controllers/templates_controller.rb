@@ -44,8 +44,6 @@ class TemplatesController < ApplicationController
   end
 
   def update
-    puts template_params
-
     if @template.update(template_params)
       redirect_to template_url, notice: "Template atualizado!"
     else

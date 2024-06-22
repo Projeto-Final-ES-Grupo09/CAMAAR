@@ -8,7 +8,7 @@
         </div>
         <div class="icon-template">
           <%= image_tag('editarIcon.png', alt: 'Editar', class: 'icon-menu', id: 'openModalEdit') %>
-          <%= image_tag('lixeiraIcon.png', alt: 'Deletar', class: 'icon-menu', id: 'openModalDelete') %>
+          <%= image_tag('lixeiraIcon.png', alt: 'Deletar', class: 'icon-menu openModalDelete', data: { id: template.id }) %>
         </div>
       </div>
     <% end %>
@@ -20,12 +20,32 @@
   </div>
 </div>
 
-<div class="modal-adicionar-template" id="template-add">
+<div id="modalDelete" class="modal-adicionar-template">
   <div class="modal-content">
-    <label for="tname">Nome do template:</label>
-    <input type="text" id="tname" name="tname"><br><br>
-    <%= render partial: "questaoSelect" %>
+    <p>Você tem certeza que deseja deletar este template?</p>
+    <%= form_with url: "", method: :delete, id: "deleteForm" do %>
+      <%= hidden_field_tag :template_id %>
+      <button type="submit">Confirmar</button>
+    <% end %>
+    <button id="cancelDelete">Cancelar</button>
   </div>
+</div>
+
+ <div class="modal-adicionar-template" id="template-add">
+ <div class="modal-content">
+    <%= form_with(model: @template, url: templates_path, local: true, id: "formNovoTemplate", class: "template-form") do |form| %>
+    <div class="headerTemplateAdd">  
+      <label for="tname">
+        Nome do template:
+      </label>
+      <input type="text" id="tname" name="tname"><br><br>
+      <label for="tsemestre">Semestre:
+        <input type="number" id="tsemestre" name="tsemestre"><br><br>
+      </label>
+    </div>  
+    <% end %>
+   <%= render partial: "questaoSelect" %>
+ </div>
 </div>
 
 <div id="modalEdicao" class="modal-adicionar-template">
@@ -51,10 +71,23 @@
   var modal = document.getElementById("template-add");
   var modalEdit = document.getElementById("modalEdicao");
   var btn = document.getElementById("openModalAdd");
-  var btnEdit = document.getElementById("openModalEdit")
+  var btnEdit = document.getElementById("openModalEdit");
+  const openModalDeleteButtons = document.querySelectorAll('.openModalDelete');
+  const modalDelete = document.getElementById('modalDelete');
+  const deleteForm = document.getElementById('deleteForm');
+  let deleteTemplateId = null;
+
+  // Abrir modal de adição
   btn.onclick = function() {
     modal.style.display = "block";
-  }
+  };
+
+  // Abrir modal de edição
+  btnEdit.onclick = function() {
+    modalEdit.style.display = "block";
+  };
+
+  // Fechar modais ao clicar fora deles
   window.onclick = function(event) {
     if (event.target == modal) {
       modal.style.display = "none";
@@ -62,9 +95,21 @@
     if (event.target == modalEdit) {
       modalEdit.style.display = "none";
     }
-  }
-  
-  document.getElementById('openModalEdit').addEventListener('click', function() {
-  modalEdit.style.display = 'block';
+    if (event.target == modalDelete) {
+      modalDelete.style.display = "none";
+    }
+  };
+
+  openModalDeleteButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      deleteTemplateId = button.dataset.id;
+      modalDelete.style.display = 'block';
+      deleteForm.action = `/templates/${deleteTemplateId}`;
+    });
+  });
+
+  document.getElementById('cancelDelete').addEventListener('click', () => {
+    modalDelete.style.display = 'none';
+    deleteTemplateId = null;
   });
 </script>

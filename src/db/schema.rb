@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_21_052602) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_21_173257) do
   create_table "formularios", force: :cascade do |t|
     t.integer "id_turma"
     t.integer "id_template"
@@ -29,6 +29,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_21_052602) do
     t.string "nome"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "opcos", force: :cascade do |t|
+    t.string "texto"
+    t.boolean "alternativa"
+    t.integer "questao_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["questao_id"], name: "index_opcos_on_questao_id"
   end
 
   create_table "questoes", force: :cascade do |t|
@@ -118,6 +127,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_21_052602) do
   add_foreign_key "formularios", "respostas", column: "respostas_id"
   add_foreign_key "formularios", "templates"
   add_foreign_key "formularios", "turmas"
+  add_foreign_key "opcos", "questoes"
   add_foreign_key "questoes", "respostas", column: "respostas_id"
   add_foreign_key "questoes_templates", "questoes"
   add_foreign_key "questoes_templates", "templates"

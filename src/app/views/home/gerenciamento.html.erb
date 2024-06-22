@@ -17,14 +17,7 @@
 <div class="modal-adicionar-template" id="modal-enviar-forms">
   <%= form_tag enviar_formularios_path, method: :post do %>
     <div class="modal-content-env-forms">
-      <div class="select-templates">
-        <span>Templates:</span>
-        <select name="template_id" class="custom-select">
-          <% @templates.each do |template| %>
-            <option class="custom-option" value="<%= template.id %>"><%= template.nome %></option>
-          <% end %>
-        </select>
-      </div>
+      <%= render partial: "templates/selectTemplate", locals: { template: @templates } %>
       <div class="header-env-forms">
           <div class="items-form-env">
               <span>

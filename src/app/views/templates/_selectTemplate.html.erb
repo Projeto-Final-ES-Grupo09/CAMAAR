@@ -1,0 +1,12 @@
+<div class="select-templates">
+  <% if @templates.present? %>
+    <span>Templates:</span>
+    <select name="template_id" class="custom-select">
+      <% @templates.each do |template| %>
+        <option class="custom-option" value="<%= template.id %>"><%= template.nome %></option>
+      <% end %>
+    </select>
+  <% else %>
+    <p>Não há templates disponíveis.</p>
+  <% end %>
+</div>

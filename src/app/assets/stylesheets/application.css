@@ -401,3 +401,126 @@ body {
   left: 50%;
   transform: translateX(-50%);
 }
+
+.bloco-questao {
+  width: 100%;
+}
+
+.tipoQuestao {
+  display: flex;
+  width: 100%;
+}
+
+.containerSelectTipo {
+  display: flex;
+  gap: 10px;
+  font-size: 16px;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+}
+
+.containerSelectTipo select {
+  border-radius: 5px;
+  border: 1px solid #E0E0E0;
+  padding: 5px;
+
+}
+
+.container-questao {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 20px 0px 20px 40px;
+}
+
+
+.container-questao h3 {
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.addNovaQuestao {
+  color: white;
+  border-radius: 20px;
+  border: unset;
+  background-color: #6C2365;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.modalQuestoesAdd {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.modal-content-options {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  padding-bottom: 50px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.removerQuestao {
+  border: unset;
+  background-color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.headerTemplateAdd {
+  width: 100%;
+}
+
+.questao {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-bottom: 40px;
+}
+
+.questao {
+  width: 100%;
+}
+
+.opcao {
+  width: 100%;
+}
+
+.addOpcao {
+  color: white;
+  border-radius: 20px;
+  border: unset;
+  display: flex;
+  background-color: #6F6F6F;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 30px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 48%;
+  transform: translateX(-50%);
+}
+
+.opcaoSelectRadio {
+  width: 100%;
+    gap: 20px;
+    display: flex;
+    align-items: center;
+    margin: 10px 0px;
+}
